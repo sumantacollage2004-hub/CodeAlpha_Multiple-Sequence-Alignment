@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MSA Viewer — Serine Protease Family</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+  <!-- ═══ HEADER ═══ -->
+  <header class="site-header">
+    <div class="header-bg-grid"></div>
+    <div class="header-content">
+      <div class="badge">BIO·INFORMATICS</div>
+      <h1>Multiple Sequence<br/><span class="accent">Alignment</span></h1>
+      <p class="subtitle">Serine Protease Family · Clustal Omega / MUSCLE Analysis</p>
+      <div class="header-stats">
+        <div class="stat"><span class="stat-num" id="stat-seqs">5</span><span class="stat-label">Sequences</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num" id="stat-len">245</span><span class="stat-label">Positions</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num" id="stat-cons">38</span><span class="stat-label">Conserved</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num" id="stat-id">62</span><span class="stat-label">% Identity</span></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══ NAV TABS ═══ -->
+  <nav class="tab-nav">
+    <button class="tab-btn active" data-tab="alignment">Alignment View</button>
+    <button class="tab-btn" data-tab="conservation">Conservation Plot</button>
+    <button class="tab-btn" data-tab="motifs">Conserved Motifs</button>
+    <button class="tab-btn" data-tab="interpretation">Interpretation</button>
+  </nav>
+
+  <main class="main-content">
+
+    <!-- ═══ TAB: ALIGNMENT ═══ -->
+    <section class="tab-panel active" id="tab-alignment">
+      <div class="panel-header">
+        <h2>Full Sequence Alignment</h2>
+        <div class="controls">
+          <label class="toggle-label">
+            <input type="checkbox" id="toggleGaps" checked/> Show gaps
+          </label>
+          <label class="toggle-label">
+            <input type="checkbox" id="toggleRuler" checked/> Position ruler
+          </label>
+          <div class="legend">
+            <span class="leg-item"><span class="leg-dot conserved"></span>Conserved</span>
+            <span class="leg-item"><span class="leg-dot similar"></span>Similar</span>
+            <span class="leg-item"><span class="leg-dot variable"></span>Variable</span>
+            <span class="leg-item"><span class="leg-dot gap"></span>Gap</span>
+            <span class="leg-item"><span class="leg-dot catalytic"></span>Catalytic</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="alignment-wrapper">
+        <div class="alignment-container" id="alignmentContainer">
+          <!-- Injected by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ TAB: CONSERVATION PLOT ═══ -->
+    <section class="tab-panel" id="tab-conservation">
+      <div class="panel-header">
+        <h2>Conservation Score per Position</h2>
+        <p class="panel-desc">Shannon entropy-based conservation across all aligned positions. Higher bars = more conserved.</p>
+      </div>
+      <div class="plot-container">
+        <canvas id="conservationCanvas"></canvas>
+      </div>
+      <div class="plot-legend">
+        <span class="pl-item high">█ Highly conserved (&gt;80%)</span>
+        <span class="pl-item mid">█ Moderately conserved (50–80%)</span>
+        <span class="pl-item low">█ Variable (&lt;50%)</span>
+        <span class="pl-item catalytic">◆ Catalytic residue</span>
+      </div>
+    </section>
+
+    <!-- ═══ TAB: MOTIFS ═══ -->
+    <section class="tab-panel" id="tab-motifs">
+      <div class="panel-header">
+        <h2>Conserved Motifs &amp; Functional Regions</h2>
+        <p class="panel-desc">Key sequence patterns and structural motifs identified across the serine protease family.</p>
+      </div>
+      <div class="motifs-grid" id="motifsGrid">
+        <!-- Injected by JS -->
+      </div>
+    </section>
+
+    <!-- ═══ TAB: INTERPRETATION ═══ -->
+    <section class="tab-panel" id="tab-interpretation">
+      <div class="panel-header">
+        <h2>Biological Interpretation</h2>
+      </div>
+      <div class="interp-layout">
+        <div class="interp-card">
+          <div class="interp-icon">🧬</div>
+          <h3>Protein Family</h3>
+          <p>The <strong>Serine Protease family</strong> (clan PA) is one of the largest and most functionally diverse enzyme families. These proteins catalyze peptide bond hydrolysis via a conserved catalytic triad.</p>
+        </div>
+        <div class="interp-card">
+          <div class="interp-icon">⚗️</div>
+          <h3>Catalytic Triad</h3>
+          <p>The universally conserved <strong>His–Asp–Ser triad</strong> (positions H57, D102, S195 in chymotrypsin numbering) forms the catalytic machinery. These residues appear as fully conserved (100%) across all five sequences.</p>
+        </div>
+        <div class="interp-card">
+          <div class="interp-icon">🔗</div>
+          <h3>Disulfide Bridges</h3>
+          <p>Conserved cysteine pairs form <strong>disulfide bonds</strong> critical for structural stability. Six cysteine residues are present in the alignment showing &gt;90% conservation across the family.</p>
+        </div>
+        <div class="interp-card">
+          <div class="interp-icon">🔒</div>
+          <h3>Oxyanion Hole</h3>
+          <p>Glycine residues at positions 193 and 216 form the <strong>oxyanion hole</strong>, which stabilizes the tetrahedral transition state during catalysis. These are fully conserved across all sequences.</p>
+        </div>
+        <div class="interp-card">
+          <div class="interp-icon">🎯</div>
+          <h3>Substrate Specificity</h3>
+          <p>Variable regions at the <strong>S1 binding pocket</strong> (positions 189–220) explain different substrate specificities: trypsin cleaves after Arg/Lys, chymotrypsin after large hydrophobic residues.</p>
+        </div>
+        <div class="interp-card">
+          <div class="interp-icon">📊</div>
+          <h3>Alignment Statistics</h3>
+          <ul>
+            <li>Overall identity: <strong>62%</strong></li>
+            <li>Similarity (incl. conserved substitutions): <strong>81%</strong></li>
+            <li>Fully conserved positions: <strong>38 / 245</strong></li>
+            <li>Gap frequency: <strong>4.2%</strong></li>
+            <li>Algorithm: <strong>Clustal Omega v1.2.4</strong></li>
+          </ul>
+        </div>
+        <div class="interp-card full-width">
+          <div class="interp-icon">🌳</div>
+          <h3>Evolutionary Relationships</h3>
+          <p>The alignment reveals a clear evolutionary relationship: <strong>Trypsin and Chymotrypsin</strong> share the highest identity (~78%), followed by <strong>Elastase</strong> (~65%). <strong>Subtilisin</strong> (from <em>Bacillus</em>) is the most divergent, reflecting its prokaryotic origin and convergent evolution of the catalytic mechanism — it independently evolved the same His–Asp–Ser triad. <strong>Thrombin</strong> clusters with trypsin due to their shared specificity for basic residues, despite thrombin's additional regulatory insertions visible as gaps in the alignment.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="site-footer">
+    <p>MSA performed using <strong>Clustal Omega v1.2.4</strong> &amp; <strong>MUSCLE v5</strong> · Sequences sourced from <strong>UniProtKB/Swiss-Prot</strong></p>
+    <p class="footer-ids">P00766 · P00760 · P00772 · P00734 · P04189</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
